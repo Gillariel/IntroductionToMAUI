@@ -1,0 +1,26 @@
+﻿@namespace BlazorClassLibrary.Components
+
+<style>
+    .drive-container,
+    .drive-container .mud-tooltip-root {
+        width: 100%
+    }
+</style>
+
+<MudGrid>
+    @foreach (var drive in Drives)
+    {
+        if (drive.IsReady)
+        {
+            var progress = (1 - GetProgress(drive)) * 100;
+            <MudItem xs="6" sm="6" md="4" lg="3" xl="2" xxl="1">
+                <div class="drive-container">
+                    <MudTooltip Text="@($"{ReadableBytes(drive.TotalFreeSpace)} available on {ReadableBytes(drive.TotalSize)} ({progress.ToString("0.00")}%)")" Placement="Placement.Top">
+                        <MudIcon Icon="@(GetIcon(drive))" />&nbsp;@drive.VolumeLabel (@drive.Name) <br /><br />
+                        <MudProgressLinear Color="Color.Primary" Rounded="true" Value="@progress" />
+                    </MudTooltip>
+                </div>
+            </MudItem>
+        }
+    }
+</MudGrid>

@@ -1,0 +1,107 @@
+﻿@page "/essentials"
+
+<MudGrid Spacing="2">
+    <MudItem sm="12" md="6" lg="4">
+        <MudCard>
+            <MudCardHeader>
+                <MudText Typo="Typo.body2">Premade SMS</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudTextField T="string"
+                              @bind-Value="SMS" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton OnClick="@(async () => await Essentials.OpenSms())">Send SMS</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+
+    <MudItem sm="12" md="6" lg="4">
+        <MudCard>
+            <MudCardHeader>
+                <MudText Typo="Typo.body2">Internet connection</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Current connection : @Connectivity.Current.ConnectionProfiles.FirstOrDefault().ToString()</MudText>
+                <MudText>Current connection status : @Connectivity.Current.NetworkAccess.ToString()</MudText>
+                <MudText>Available connectivity : @string.Join(", ", Connectivity.ConnectionProfiles.Select(p => p.ToString()))</MudText>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+
+    @if (OperatingSystem.IsAndroid() || OperatingSystem.IsIOS())
+    {
+        <MudItem sm="12" md="6" lg="4">
+            <MudCard>
+                <MudCardHeader>
+                    <MudText Typo="Typo.body2">Manage flashlight</MudText>
+                </MudCardHeader>
+                <MudCardActions>
+                    <MudButton OnClick="Essentials.TurnOnFlashLight">Turn on</MudButton>
+                    <MudButton OnClick="Essentials.TurnOffFlashLight">Turn off</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    }
+
+    <MudItem sm="12" md="6" lg="4">
+        <MudCard>
+            <MudCardHeader>
+                <MudText Typo="Typo.body2">Get battery info</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>@Essentials.GetBattery()</MudText>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+
+    <MudItem sm="12" md="6" lg="4">
+        <MudCard>
+            <MudCardHeader>
+                <MudText Typo="Typo.body2">Share clipboard</MudText>
+            </MudCardHeader>
+            <MudCardActions>
+                <MudButton OnClick="Essentials.ShareClipboard">Share</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+
+    <MudItem sm="12" md="6" lg="4">
+        <MudCard>
+            <MudCardHeader>
+                <MudText Typo="Typo.body2">Preferences</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+
+                <MudList>
+                    @foreach (var pref in preferenceKeys)
+                    {
+                        if (HasPreference(pref.ToString()))
+                        {
+                            <MudListItem Text="@($"{pref.ToString()} => {Essentials.GetPreference(pref.ToString())}")" />
+                        }
+                    }
+                </MudList>
+
+                <MudSelect T="PreferenceKeys"
+                           @bind-Value="TempPrefKey">
+                    @foreach (var pref in preferenceKeys)
+                    {
+                        <MudSelectItem Value="pref" T="PreferenceKeys">
+                            @pref.ToString()
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+
+                <MudTextField T="string"
+                              @bind-Value="TempPrefValue" />
+
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton OnClick="SavePreference">Save preference</MudButton>
+                <MudButton OnClick="ClearPreferences">Clear preferences</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+
+</MudGrid>

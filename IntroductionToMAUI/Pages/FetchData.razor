@@ -1,0 +1,48 @@
+﻿@page "/fetchdata"
+
+@using IntroductionToMAUI.Data
+@inject JokeService JokeService
+
+<h1>Jokes fetcher</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (jokes == null || jokes.Error)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Joke</th>
+				<th>Lang</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var joke in jokes.Jokes)
+			{
+				<tr>
+					<td>@joke.Id</td>
+					<td>@joke.Joke</td>
+					<td>@joke.Lang</td>				
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+	private JokesPoco jokes;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await GetJokes();
+		await base.OnInitializedAsync();
+	}
+
+	private async Task GetJokes()
+		=> jokes = await JokeService.GetJokes(10);
+}

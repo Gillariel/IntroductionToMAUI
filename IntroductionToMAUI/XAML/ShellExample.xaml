@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="IntroductionToMAUI.XAML.ShellExample"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:IntroductionToMAUI.XAML">
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:Index}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Blazor"
+        ContentTemplate="{DataTemplate local:WithBlazor}"
+        Route="Blazor" />
+
+</Shell>

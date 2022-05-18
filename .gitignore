@@ -1,0 +1,69 @@
+
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
+
+# Visual Studio Code
+.vscode
+
+# Rider
+.idea
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS publish profiles
+**/Properties/PublishProfiles/*
+**/.config/dotnet-tools.json
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio 2015
+.vs/
+*.sln.startup.json
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+
+# compiled css
+site.css
+site.*.css
+
+# compiled js
+site.js
+site.*.js
+
+# Assets
+**/wwwroot/assets/*
+
+# Ignore all exported app settings
+**/appsettings.shared.json
+**/appsettings.shared.*.json
+!Global/appsettings.shared.json
+!Global/appsettings.shared.*.json
+
+# Personal environment config
+**/appsettings.*.personal.*.json
