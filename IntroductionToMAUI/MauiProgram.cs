@@ -21,7 +21,7 @@ public static class MauiProgram
 		builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
 
-
+        builder.Services.RegisterPlatformSpecificComponents();
         builder.Services.AddHttpClient();
 
         // Register Essentials

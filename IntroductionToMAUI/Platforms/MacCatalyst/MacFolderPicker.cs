@@ -1,11 +1,13 @@
 ﻿
-using Foundation;
+
 using IntroductionToMAUI.Interfaces;
-using UIKit;
 
 namespace IntroductionToMAUI;
 
-public partial class FolderPicker : IFolderPicker
+using Foundation;
+using UIKit;
+
+public partial class MacFolderPicker : IFolderPicker
 {
     class PickerDelegate : UIDocumentPickerDelegate
     {
@@ -20,6 +22,8 @@ public partial class FolderPicker : IFolderPicker
         public override void DidPickDocument(UIDocumentPickerViewController controller, NSUrl url)
             => PickHandler?.Invoke(new NSUrl[] { url });
     }
+
+    #region OS code
 
     static void GetFileResults(NSUrl[] urls, TaskCompletionSource<string> tcs)
     {
@@ -80,4 +84,6 @@ public partial class FolderPicker : IFolderPicker
             base.Dispose(disposing);
         }
     }
+
+    #endregion
 }

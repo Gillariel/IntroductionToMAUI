@@ -1,15 +1,19 @@
 ﻿using IntroductionToMAUI.Interfaces;
+using IntroductionToMAUI.Platforms;
+//using IntroductionToMAUI.Platforms;
 
 namespace IntroductionToMAUI;
 
 public static class DependencyInjectionsExtensions 
 {
-    private static void RegisterPlatformSpecificComponents(IServiceCollection services)
+    public static void RegisterPlatformSpecificComponents(this IServiceCollection services)
     {
 #if WINDOWS
-        services.AddTransient<IFolderPicker, FolderPicker>();
+        services.AddTransient<IFolderPicker, WinFolderPicker>();
 #elif MACCATALYST
-        services.AddTransient<IFolderPicker, FolderPicker>();
+        services.AddTransient<IFolderPicker, MacFolderPicker>();
+#elif ANDROID        
+        services.AddTransient<IFolderPicker, AndroidFolderPicker>();
 #endif
     }
 }

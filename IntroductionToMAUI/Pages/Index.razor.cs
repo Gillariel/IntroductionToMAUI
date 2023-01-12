@@ -7,5 +7,5 @@ public partial class Index
     [Inject] IMap Map { get; set; }
 
     private Task OpenMap(NavigationMode mode = NavigationMode.Driving)
-        => Map.OpenAsync(50.8278618, 4.3533948, new MapLaunchOptions { Name = "Postivive Thinking Company", NavigationMode = mode });
+        => Map.OpenAsync(50.5773772, 4.6609821, new MapLaunchOptions { Name = "La niche", NavigationMode = mode });
 }

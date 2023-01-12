@@ -1,20 +1,46 @@
 ﻿@page "/essentials"
+@using IntroductionToMAUI.Interfaces;
+
 
 <MudGrid Spacing="2">
-    <MudItem sm="12" md="6" lg="4">
-        <MudCard>
-            <MudCardHeader>
-                <MudText Typo="Typo.body2">Premade SMS</MudText>
-            </MudCardHeader>
-            <MudCardContent>
-                <MudTextField T="string"
+    
+    @if (OperatingSystem.IsWindows() || OperatingSystem.IsMacCatalyst())
+    {
+        @inject IFolderPicker FolderPicker;
+        <MudItem sm="12" md="6" lg="4">
+            <MudCard>
+                <MudCardHeader>
+                    <MudText Typo="Typo.body2">Folder picker</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText>
+                        @PickedFolder
+                    </MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton OnClick="@GetFolder">Choose a Directory</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    }
+
+    @if (Sms.Default.IsComposeSupported)
+    {
+        <MudItem sm="12" md="6" lg="4">
+            <MudCard>
+                <MudCardHeader>
+                    <MudText Typo="Typo.body2">Premade SMS</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField T="string"
                               @bind-Value="SMS" />
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton OnClick="@(async () => await Essentials.OpenSms())">Send SMS</MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton OnClick="@(async () => await Essentials.OpenSms())">Send SMS</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    }
 
     <MudItem sm="12" md="6" lg="4">
         <MudCard>

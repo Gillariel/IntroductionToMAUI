@@ -4,7 +4,7 @@ namespace IntroductionToMAUI;
 using IntroductionToMAUI.Interfaces;
 using WindowsFolderPicker = Windows.Storage.Pickers.FolderPicker;
 
-public partial class FolderPicker : IFolderPicker
+public partial class WinFolderPicker : IFolderPicker
 {
     public async Task<string> PickFolder()
     {

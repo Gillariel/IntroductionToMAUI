@@ -1,21 +1,32 @@
-﻿namespace IntroductionToMAUI.Pages;
+﻿using System.Diagnostics;
+
+namespace IntroductionToMAUI.Pages;
 
 public partial class Essentials
 {
     #region Constants
 
-    private static readonly PreferenceKeys[] preferenceKeys 
+    private static readonly PreferenceKeys[] preferenceKeys
         = (PreferenceKeys[])Enum.GetValues(typeof(PreferenceKeys));
 
     #endregion
 
     #region Properties
 
+    
     private string SMS { get; set; }
     private PreferenceKeys TempPrefKey { get; set; }
     private string TempPrefValue { get; set; }
 
     #endregion
+
+    private string PickedFolder { get; set; }
+
+    private async Task GetFolder()
+    {
+        PickedFolder = await FolderPicker.PickFolder();
+        await InvokeAsync(StateHasChanged);
+    }
 
     #region LifeCycle
 
@@ -24,9 +35,9 @@ public partial class Essentials
     #region  Send SMS
 
     private static Task OpenSms()
-        => Sms.ComposeAsync(new SmsMessage
+        => Sms.Default.ComposeAsync(new SmsMessage
         {
-            Body = "Hello PTC from MAUI Blazor!",
+            Body = "Hello Laniche from MAUI Blazor!",
             Recipients = new() { "+32478628927", "+32460954818" }
         });
 
@@ -53,8 +64,8 @@ public partial class Essentials
 
     private static async Task ShareClipboard()
         => await Share.RequestAsync(
-            await (Clipboard.HasText 
-                ? Clipboard.GetTextAsync() 
+            await (Clipboard.HasText
+                ? Clipboard.GetTextAsync()
                 : Task.FromResult<string?>("Random clipboard")
             )
         );
@@ -85,6 +96,8 @@ public partial class Essentials
     }
 
     #endregion
+
+    
 }
 
 public enum PreferenceKeys
